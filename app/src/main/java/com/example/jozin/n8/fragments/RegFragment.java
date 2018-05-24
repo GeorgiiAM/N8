@@ -132,16 +132,15 @@ public class RegFragment extends Fragment {
         login=(EditText)v.findViewById(R.id.login);
         pass = (EditText) v.findViewById(R.id.pass);
         pass2 = (EditText) v.findViewById(R.id.pass2);
-        gotolog= (EditText) v.findViewById(R.id.gotolog);
+        gotolog= (TextView) v.findViewById(R.id.gotolog);
         btnRegister = (Button) v.findViewById(R.id.reg_btn);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 onRegisterButtonClicked(v);
-                Fragment sfr=new SettingFragment();
-                FragmentTransaction trans=getFragmentManager().beginTransaction();
-                trans.replace(R.id.container,sfr);
+                ((MainActivity)getActivity()).onNavigationItemSelected2(3);
                 //v.findViewById(R.id.attention).setVisibility(v.GONE);
             }
         });
@@ -149,7 +148,7 @@ public class RegFragment extends Fragment {
         gotolog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).onNavigationItemSelected2(4);
+                ((MainActivity)getActivity()).onNavigationItemSelected2(1);
             }
         });
 
@@ -187,6 +186,7 @@ public class RegFragment extends Fragment {
                         Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

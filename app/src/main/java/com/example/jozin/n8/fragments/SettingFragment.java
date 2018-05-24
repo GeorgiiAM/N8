@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.app.Fragment;
 import com.example.jozin.n8.R;
+import com.example.jozin.n8.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.

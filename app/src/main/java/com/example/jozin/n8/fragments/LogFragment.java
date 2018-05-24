@@ -167,9 +167,7 @@ public class LogFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 onLoginButtonClicked();
-                Fragment sfr=new SettingFragment();
-                FragmentTransaction trans=getFragmentManager().beginTransaction();
-                trans.replace(R.id.container,sfr);
+
             }
         });
         tvRegister.setOnClickListener(new View.OnClickListener() {
@@ -274,6 +272,7 @@ public class LogFragment extends Fragment {
                                 Toast.LENGTH_SHORT).show();
                     }
                 }, checkboxRemember.isChecked());
+        ((MainActivity)getActivity()).onNavigationItemSelected2(3);
     }
 
 
