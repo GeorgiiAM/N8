@@ -1,0 +1,19 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jozin.n8.fragments.MainFragment"
+    android:id="@+id/frameLayout3">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/txt_sensor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        tools:layout_conversion_absoluteHeight="511dp"
+        tools:layout_conversion_absoluteWidth="384dp"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="246dp" />
+
+</android.support.constraint.ConstraintLayout>
