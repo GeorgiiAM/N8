@@ -140,7 +140,7 @@ public class RegFragment extends Fragment {
             public void onClick(View v) {
 
                 onRegisterButtonClicked(v);
-                ((MainActivity)getActivity()).onNavigationItemSelected2(3);
+
                 //v.findViewById(R.id.attention).setVisibility(v.GONE);
             }
         });
@@ -176,6 +176,7 @@ public class RegFragment extends Fragment {
             public void handleResponse(BackendlessUser response) {
                 Toast.makeText(getActivity().getApplicationContext(), R.string.register_success,
                         Toast.LENGTH_SHORT).show();
+                registerSuccess();
 
 
             }
@@ -184,6 +185,7 @@ public class RegFragment extends Fragment {
             public void handleFault(BackendlessFault fault) {
                 Toast.makeText(getActivity().getApplicationContext(), R.string.register_fail,
                         Toast.LENGTH_SHORT).show();
+                registerUnSuccess();
             }
         });
 
@@ -226,5 +228,15 @@ public class RegFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void registerSuccess() {
+        // TODO: go to home screen
+        ((MainActivity)getActivity()).onNavigationItemSelected2(3);
+    }
+
+    private void registerUnSuccess() {
+        // TODO: go to home screen
+        ((MainActivity)getActivity()).onNavigationItemSelected2(3);
     }
 }

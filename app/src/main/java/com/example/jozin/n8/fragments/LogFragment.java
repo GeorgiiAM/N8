@@ -168,12 +168,13 @@ public class LogFragment extends Fragment {
             public void onClick(View view) {
                 onLoginButtonClicked();
 
+
             }
         });
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).onNavigationItemSelected2(4);
+                ((MainActivity)getActivity()).onNavigationItemSelected2(3);
             }
         });
 
@@ -254,6 +255,12 @@ public class LogFragment extends Fragment {
   */
     private void loginSuccess() {
         // TODO: go to home screen
+        ((MainActivity)getActivity()).onNavigationItemSelected2(3);
+    }
+
+    private void loginUnSuccess() {
+        // TODO: go to home screen
+        ((MainActivity)getActivity()).onNavigationItemSelected2(3);
     }
     private void onLoginButtonClicked() {
         Backendless.UserService.login(etEmail.getText().toString(),
@@ -270,9 +277,10 @@ public class LogFragment extends Fragment {
                     public void handleFault(BackendlessFault fault) {
                         Toast.makeText(getActivity().getApplicationContext(), getString(R.string.login_fail) + fault.getMessage(),
                                 Toast.LENGTH_SHORT).show();
+                        loginUnSuccess();
                     }
                 }, checkboxRemember.isChecked());
-        ((MainActivity)getActivity()).onNavigationItemSelected2(3);
+
     }
 
 
