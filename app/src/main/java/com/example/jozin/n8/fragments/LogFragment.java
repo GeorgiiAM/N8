@@ -113,7 +113,8 @@ public class LogFragment extends Fragment {
 
 
         Backendless.setUrl( Defaults.SERVER_URL );
-        Backendless.initApp(getActivity().getApplicationContext(), Defaults.APPLICATION_ID, Defaults.API_KEY );
+        Backendless.initApp(getActivity().getApplicationContext(), Defaults.APPLICATION_ID,
+                Defaults.API_KEY );
 
         checkAutomaticLogin();
 
@@ -121,7 +122,8 @@ public class LogFragment extends Fragment {
         initViews(v);
 
         if (Backendless.UserService.CurrentUser() != null)
-            Toast.makeText(getActivity().getApplicationContext(), Backendless.UserService.CurrentUser().getUserId(),
+            Toast.makeText(getActivity().getApplicationContext(),
+                    Backendless.UserService.CurrentUser().getUserId(),
                     Toast.LENGTH_SHORT).show();
         return v;
     }
@@ -174,7 +176,7 @@ public class LogFragment extends Fragment {
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).onNavigationItemSelected2(3);
+                ((MainActivity)getActivity()).onNavigationItemSelected2(4);
             }
         });
 
@@ -182,7 +184,7 @@ public class LogFragment extends Fragment {
         tvRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  startActivity(new Intent(LoginActivity.this, RestorePasswordActivity.class));
+                ((MainActivity)getActivity()).onNavigationItemSelected2(6);
             }
         });
         btnFacebook.setOnClickListener(new View.OnClickListener() {
@@ -255,12 +257,12 @@ public class LogFragment extends Fragment {
   */
     private void loginSuccess() {
         // TODO: go to home screen
-        ((MainActivity)getActivity()).onNavigationItemSelected2(3);
+        ((MainActivity)getActivity()).onNavigationItemSelected2(7);
     }
 
     private void loginUnSuccess() {
         // TODO: go to home screen
-        ((MainActivity)getActivity()).onNavigationItemSelected2(3);
+        ((MainActivity)getActivity()).onNavigationItemSelected2(1);
     }
     private void onLoginButtonClicked() {
         Backendless.UserService.login(etEmail.getText().toString(),

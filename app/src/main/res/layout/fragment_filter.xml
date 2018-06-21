@@ -1,0 +1,82 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jozin.n8.fragments.NewJumpFragment"
+    tools:layout_editor_absoluteY="81dp">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/txt_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Drop Zone"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toTopOf="@+id/btnFilter2"
+        app:layout_constraintEnd_toStartOf="@+id/tvDZ"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_2" />
+
+    <TextView
+        android:id="@+id/txt_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="58dp"
+        android:text="Date"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toTopOf="@+id/txt_3"
+        app:layout_constraintEnd_toStartOf="@+id/tvDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/tvDZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="363dp"
+        android:layout_marginEnd="65dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Щеглово"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_3"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+    <EditText
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginTop="31dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/tvDZ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnFilter2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="282dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginStart="131dp"
+        android:text="Filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvDZ"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_3" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.example.jozin.n8;
 
+import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,6 +10,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Layout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,12 +20,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 //import android.app.Fragment;
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.UserService;
+import com.backendless.persistence.local.UserTokenStorageFactory;
+import com.example.jozin.n8.fragments.FilterFragment;
+import com.example.jozin.n8.fragments.ListFragment;
 import com.example.jozin.n8.fragments.LogFragment;
 import com.example.jozin.n8.fragments.MainFragment;
+import com.example.jozin.n8.fragments.NewJumpFragment;
+import com.example.jozin.n8.fragments.OtherUserFragment;
+import com.example.jozin.n8.fragments.ProfileFragment;
 import com.example.jozin.n8.fragments.RegFragment;
+import com.example.jozin.n8.fragments.RestorePassword;
 import com.example.jozin.n8.fragments.SettingFragment;
+
+import java.util.logging.FileHandler;
 
 public class MainActivity extends AppCompatActivity
         implements SensorEventListener, NavigationView.OnNavigationItemSelectedListener {
@@ -32,13 +49,20 @@ public class MainActivity extends AppCompatActivity
     SettingFragment sfr;
     LogFragment lfr;
     RegFragment rfr;
+    NewJumpFragment njfr;
+    ListFragment lstfr;
+    RestorePassword restfr;
+    ProfileFragment pfr;
+    OtherUserFragment oufr;
+    FilterFragment ffr;
 
 
 
     private TextView txt,txt2;
-
     private SensorManager sensorManager;
     private Sensor pressureSensor;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +72,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+        Backendless.setUrl( Defaults.SERVER_URL );
+        Backendless.initApp(getApplicationContext(), Defaults.APPLICATION_ID, Defaults.API_KEY );
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,6 +90,13 @@ public class MainActivity extends AppCompatActivity
         sfr=new SettingFragment();
         lfr=new LogFragment();
         rfr=new RegFragment();
+        njfr= new NewJumpFragment();
+        lstfr=new ListFragment();
+        restfr=new RestorePassword();
+        pfr= new ProfileFragment();
+        oufr=new OtherUserFragment();
+        ffr=new FilterFragment();
+
 
         FragmentTransaction ftrans=getFragmentManager().beginTransaction();
         ftrans.replace(R.id.container,mfr);
@@ -78,6 +104,50 @@ public class MainActivity extends AppCompatActivity
         txt = (TextView)findViewById(R.id.attention);
         sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
         pressureSensor=sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        TextView profilename = (TextView) headerview.findViewById(R.id.t1);
+        profilename.setText("your name");
+
+        LinearLayout header = (LinearLayout) headerview.findViewById(R.id.profile);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String userToken = UserTokenStorageFactory.instance().getStorage().get();
+                if( userToken != null && !userToken.equals( "" ) )
+                {  onNavigationItemSelected2(7);
+                } else{
+                    onNavigationItemSelected2(7);
+                }
+
+            }
+        });
+
+
+        /*ImageView iv = (ImageView)findViewById(R.id.iv);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onNavigationItemSelected2(1);
+            }
+        });
+        TextView t1 = (TextView) findViewById(R.id.t1);
+        t1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onNavigationItemSelected2(1);
+            }
+        });
+        TextView t2 = (TextView)findViewById(R.id.t2);
+        t2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onNavigationItemSelected2(1);
+            }
+        });*/
+
+
     }
 
     @Override
@@ -119,7 +189,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         FragmentTransaction ftrans=getFragmentManager().beginTransaction();
-        if (id == R.id.imageView) {
+        if (id == R.id.iv) {
             ftrans.replace(R.id.container,lfr);
             findViewById(R.id.attention).setVisibility(View.GONE);
 
@@ -140,11 +210,21 @@ public class MainActivity extends AppCompatActivity
             findViewById(R.id.attention).setVisibility(View.GONE);
 
         } else if (id == R.id.nav_share) {
-            findViewById(R.id.attention).setVisibility(View.GONE);
 
+            findViewById(R.id.attention).setVisibility(View.GONE);
+            ftrans.replace(R.id.container,lstfr);
         } else if (id == R.id.nav_send) {
+
             findViewById(R.id.attention).setVisibility(View.GONE);
 
+        }else if (id == R.id.t1) {
+
+            findViewById(R.id.attention).setVisibility(View.GONE);
+            ftrans.replace(R.id.container,lfr);
+        }else if (id == R.id.t2) {
+
+            findViewById(R.id.attention).setVisibility(View.GONE);
+            ftrans.replace(R.id.container,lfr);
         }ftrans.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,13 +255,27 @@ public class MainActivity extends AppCompatActivity
             findViewById(R.id.attention).setVisibility(View.GONE);
 
         } else if (id == 5) {
-            ftrans.replace(R.id.container,lfr);
+            ftrans.replace(R.id.container,njfr);
             findViewById(R.id.attention).setVisibility(View.GONE);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == 6) {
+            ftrans.replace(R.id.container,restfr);
             findViewById(R.id.attention).setVisibility(View.GONE);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == 7) {
+            ftrans.replace(R.id.container,pfr);
+            findViewById(R.id.attention).setVisibility(View.GONE);
+
+        } else if (id == 8) {
+            ftrans.replace(R.id.container,lstfr);
+            findViewById(R.id.attention).setVisibility(View.GONE);
+
+        }else if (id == 9) {
+            ftrans.replace(R.id.container,oufr);
+            findViewById(R.id.attention).setVisibility(View.GONE);
+
+        }else if (id == 10) {
+            ftrans.replace(R.id.container,ffr);
             findViewById(R.id.attention).setVisibility(View.GONE);
 
         }ftrans.commit();
@@ -197,6 +291,13 @@ public class MainActivity extends AppCompatActivity
     public void onSensorChanged(SensorEvent event) {
         float[] values=event.values;
         txt.setText(String.format("%.3f mbar",values[0]));
+
+
+    }
+
+    private void speed(float[] values) {
+
+
 
     }
 
